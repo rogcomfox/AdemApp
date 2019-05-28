@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "2687892633",
+    "firebase_url": "https://ademapp-611ea.firebaseio.com",
+    "project_id": "ademapp-611ea",
+    "storage_bucket": "ademapp-611ea.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:2687892633:android:30e62274171fc9c4",
+        "android_client_info": {
+          "package_name": "com.nusantarian.ademapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "2687892633-f8i4t75mqak0ftkh3r9eegqrtrrn47ih.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nusantarian.ademapp",
+            "certificate_hash": "f799ad563fc3f9b7ccb6255e92e005185fc48aec"
+          }
+        },
+        {
+          "client_id": "2687892633-22skt8v3i5v5l6ut8637lb3e2oqersv3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfjBZPWe31UsbQOiF2fyoiSQ6tK40WygM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "2687892633-22skt8v3i5v5l6ut8637lb3e2oqersv3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

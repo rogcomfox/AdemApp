@@ -1,7 +1,11 @@
 package com.nusantarian.ademapp.Activity;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -11,16 +15,22 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.nusantarian.ademapp.R;
 
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static com.nusantarian.ademapp.Activity.LoginActivity.isEmailValid;
+
 public class ForgotActivity extends AppCompatActivity {
 
     private EditText et_email;
     private ProgressDialog mDialog;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +42,7 @@ public class ForgotActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        mAuth = FirebaseAuth.getInstance();
         et_email = findViewById(R.id.et_email);
         Button btn_forgot = findViewById(R.id.btn_forgot);
 
@@ -48,8 +59,18 @@ public class ForgotActivity extends AppCompatActivity {
                     hideprogressdialog();
                     Toast.makeText(ForgotActivity.this, "Masukkan Alamat Email dengan Benar", Toast.LENGTH_LONG).show();
                 }else {
-                    hideprogressdialog();
-                    Toast.makeText(ForgotActivity.this, "Under Construction", Toast.LENGTH_LONG).show();
+                    mAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()){
+                                hideprogressdialog();
+                                alertdialog();
+                            }else {
+                                hideprogressdialog();
+                                Toast.makeText(getApplicationContext(), "gagal Untuk Mereset Password", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
                 }
             }
         });
@@ -82,10 +103,18 @@ public class ForgotActivity extends AppCompatActivity {
             }, 1000);
         }
     }
-    public static boolean isEmailValid(String email) {
-        String expression = "^[\\w.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
-        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher(email);
-        return matcher.matches();
+    private void alertdialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Reset Password Success");
+        builder.setMessage("Silahkan Cek Email Anda");
+        builder.setCancelable(true);
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }
