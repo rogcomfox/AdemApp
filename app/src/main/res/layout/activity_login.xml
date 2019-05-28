@@ -35,5 +35,48 @@
             android:paddingEnd="25dp"
             android:textColor="@color/colorText"
             android:inputType="textEmailAddress"/>
+        <EditText
+            android:id="@+id/et_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/et_email"
+            android:background="@drawable/buttonwhite"
+            android:backgroundTint="#33FFFFFF"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:hint="Password"
+            android:textSize="18sp"
+            android:textColorHint="@color/colorText"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingStart="25dp"
+            android:paddingEnd="25dp"
+            android:textColor="@color/colorText"
+            android:inputType="textPassword" />
+        <TextView
+            android:id="@+id/tv_forgot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lupa Kata Sandi?"
+            android:layout_below="@id/et_password"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="25dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginBottom="30dp"
+            android:textColor="@color/colorText"/>
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/buttonwhite"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:layout_below="@id/tv_forgot"
+            android:layout_marginBottom="40dp"
+            android:text="Login"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp"/>
     </RelativeLayout>
 </ScrollView>
