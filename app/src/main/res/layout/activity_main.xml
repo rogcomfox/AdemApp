@@ -9,7 +9,16 @@
         android:id="@+id/bottom_nav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true">
+        android:background="@color/colorText"
+        android:layout_alignParentBottom="true"
+        app:menu="@menu/bottomnav_menu">
 
     </android.support.design.widget.BottomNavigationView>
+    <FrameLayout
+        android:id="@+id/content_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottom_nav">
+
+    </FrameLayout>
 </RelativeLayout>
