@@ -1,6 +1,7 @@
 package com.nusantarian.ademapp.Activity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -100,30 +101,37 @@ public class RegisterActivity extends AppCompatActivity {
                     mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            hideprogressdialog();
-                            uid = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
-                            mDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(uid);
-                            mDatabase.child("fullname").setValue(fullname);
-                            mDatabase.child("phone").setValue(phone);
-                            mDatabase.child("username").setValue(username);
-                            mDatabase.child("username").child(username).runTransaction(new Transaction.Handler() {
-                                @NonNull
-                                @Override
-                                public Transaction.Result doTransaction(@NonNull MutableData mutableData) {
-                                    if (mutableData.getValue() == null) {
-                                        mutableData.setValue(mAuth.getUid());
-                                        return Transaction.success(mutableData);
-                                    }else {
-                                        Toast.makeText(RegisterActivity.this, "Username Telah Ada", Toast.LENGTH_LONG).show();
+                            if (task.isSuccessful()){
+                                hideprogressdialog();
+                                uid = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
+                                mDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(uid);
+                                mDatabase.child("fullname").setValue(fullname);
+                                mDatabase.child("phone").setValue(phone);
+                                mDatabase.child("username").setValue(username);
+                                mDatabase.child("username").child(username).runTransaction(new Transaction.Handler() {
+                                    @NonNull
+                                    @Override
+                                    public Transaction.Result doTransaction(@NonNull MutableData mutableData) {
+                                        if (mutableData.getValue() == null) {
+                                            mutableData.setValue(mAuth.getUid());
+                                            return Transaction.success(mutableData);
+                                        }else {
+                                            Toast.makeText(RegisterActivity.this, "Username Telah Ada", Toast.LENGTH_LONG).show();
+                                        }
+                                        return Transaction.abort();
                                     }
-                                    return Transaction.abort();
-                                }
 
-                                @Override
-                                public void onComplete(@Nullable DatabaseError databaseError, boolean b, @Nullable DataSnapshot dataSnapshot) {
+                                    @Override
+                                    public void onComplete(@Nullable DatabaseError databaseError, boolean b, @Nullable DataSnapshot dataSnapshot) {
 
-                                }
-                            });
+                                    }
+                                });
+                                startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+                                finish();
+                            }else {
+                                hideprogressdialog();
+                                Toast.makeText(RegisterActivity.this, "Gagal Membuat Akun Anda", Toast.LENGTH_LONG).show();
+                            }
                         }
                     });
                 }
