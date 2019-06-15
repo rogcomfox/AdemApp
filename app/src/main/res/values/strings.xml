@@ -16,4 +16,7 @@
     <string name="notifications">Notifications</string>
     <string name="info">Info</string>
     <string name="logout">Logout</string>
+    <string name="info_icon">Info Icon</string>
+    <string name="info_app">"Adem adalah aplikasi dakwah multifungsi yang memiliki fitur-fitur unik.\nUntuk mengetahui adem lebih lanjut klik tonton video pada tautan berikut ini:\n"</string>
+    <string name="link_app">bit.ly/ADEMMOBILE_MTQMN2019</string>
 </resources>
