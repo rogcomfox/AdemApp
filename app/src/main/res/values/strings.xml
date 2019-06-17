@@ -20,4 +20,15 @@
     <string name="info_app">"Adem adalah aplikasi dakwah multifungsi yang memiliki fitur-fitur unik.\nUntuk mengetahui adem lebih lanjut klik tonton video pada tautan berikut ini:\n"</string>
     <string name="link_app">bit.ly/ADEMMOBILE_MTQMN2019</string>
     <string name="edit_profile">Edit Profile</string>
+    <string name="challenge">Challenge</string>
+    <string name="teman">Teman</string>
+    <string name="poin">Poin</string>
+    <string name="nama">Nama</string>
+    <string name="username">Username</string>
+    <string name="email">Email</string>
+    <string name="bio">Bio</string>
+    <string name="choose_from_gallery">Choose From Gallery</string>
+    <string name="take_picture">Take Picture</string>
+    <string name="delete_profile_picture">Delete Profile Picture</string>
+    <string name="save">Save</string>
 </resources>
