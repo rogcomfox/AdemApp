@@ -10,11 +10,14 @@ import android.view.MenuItem;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.nusantarian.ademapp.R;
 
 import java.util.Objects;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -22,6 +25,7 @@ public class ProfileActivity extends AppCompatActivity {
     private FirebaseUser mUser;
     private DatabaseReference mDatabase;
     private StorageReference mStorage;
+    private String uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +38,14 @@ public class ProfileActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        CircleImageView img_profpic = findViewById(R.id.img_profpic);
+
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
         FirebaseStorage storage = FirebaseStorage.getInstance();
         mStorage = storage.getReference();
+        uid = mUser.getUid();
+        mDatabase = FirebaseDatabase.getInstance().getReference().child(uid);
     }
 
     @Override
