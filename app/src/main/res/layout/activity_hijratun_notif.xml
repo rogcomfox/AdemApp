@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.HijratunNotifActivity">
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorText"
+            app:titleTextColor="@color/colorTextBlack">
+
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+    <Switch
+        android:id="@+id/sw_mode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/appbar"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:text="@string/mode"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textOn="@string/yes"
+        android:textOff="@string/no"/>
+    <TextView
+        android:id="@+id/tv_kalendar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/sw_mode"
+        android:layout_marginTop="20dp"
+        android:text="@string/kalender"
+        android:textSize="18sp"
+        android:textColor="@color/colorTextBlack"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:visibility="invisible"/>
+    <CalendarView
+        android:id="@+id/calendar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_kalendar"
+        android:visibility="invisible">
+    </CalendarView>
+
+</RelativeLayout>

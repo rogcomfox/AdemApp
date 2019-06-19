@@ -114,6 +114,9 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_search:
                 SearchView searchView =(SearchView)item.getActionView();
                 searchView.setQueryHint("Search");break;
+            case R.id.action_notif:
+                Toast.makeText(this, "Under Construction", Toast.LENGTH_SHORT).show();
+                break;
         }
 
         return super.onOptionsItemSelected(item);
@@ -128,6 +131,8 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.nav_info:
                 startActivity(new Intent(MainActivity.this, InfoActivity.class));break;
+            case R.id.nav_notif:
+                startActivity(new Intent(MainActivity.this, HijratunNotifActivity.class));break;
             case R.id.nav_logout:
                 AlertDialog.Builder alert = new AlertDialog.Builder(this);
                 alert.setTitle(R.string.logout);

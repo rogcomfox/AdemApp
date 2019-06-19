@@ -23,6 +23,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.nusantarian.ademapp.R;
 
 import java.util.Objects;
@@ -50,6 +52,9 @@ public class RegisterActivity extends AppCompatActivity {
         et_password = findViewById(R.id.et_password);
         et_confpass = findViewById(R.id.et_confpass);
         Button btn_register = findViewById(R.id.btn_register);
+
+        FirebaseStorage mStorage = FirebaseStorage.getInstance();
+        StorageReference storage = mStorage.getReference();
 
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,6 +113,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 mDatabase.child("fullname").setValue(fullname);
                                 mDatabase.child("phone").setValue(phone);
                                 mDatabase.child("username").setValue(username);
+                                mDatabase.child("bio").setValue("Hello, I'm Using AdemApp");
                                 mDatabase.child("username").child(username).runTransaction(new Transaction.Handler() {
                                     @NonNull
                                     @Override

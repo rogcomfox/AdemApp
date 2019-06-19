@@ -31,4 +31,9 @@
     <string name="take_picture">Take Picture</string>
     <string name="delete_profile_picture">Delete Profile Picture</string>
     <string name="save">Save</string>
+    <string name="mode">Mode</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="kalender">Kalender</string>
+    <string name="image_profile">Image Profile</string>
 </resources>

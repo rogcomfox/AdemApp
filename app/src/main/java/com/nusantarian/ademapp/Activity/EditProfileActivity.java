@@ -1,24 +1,25 @@
 package com.nusantarian.ademapp.Activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.PopupMenu;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.ImageView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 import com.nusantarian.ademapp.R;
 
 import java.util.Objects;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class EditProfileActivity extends AppCompatActivity {
 
@@ -27,7 +28,9 @@ public class EditProfileActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private StorageReference mStorage;
     private EditText et_name, et_username,et_email, et_bio;
-    private CircleImageView img_profpic;
+    private ImageView img_profpic;
+    private String uid, name, username, email, bio;
+    private Button btn_save;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,42 +41,53 @@ public class EditProfileActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setTitle("Edit Profile");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
         img_profpic = findViewById(R.id.img_profpic);
-        img_profpic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PopupMenu popupMenu = new PopupMenu(EditProfileActivity.this, img_profpic);
-                popupMenu.getMenuInflater().inflate(R.menu.changeprofpic_menu, popupMenu.getMenu());
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem menuItem) {
-                        switch (menuItem.getItemId()){
-                            case R.id.nav_choose:
-                                Toast.makeText(EditProfileActivity.this, "Under Construction", Toast.LENGTH_SHORT).show();
-                                break;
-                            case R.id.nav_take:
-                                Toast.makeText(EditProfileActivity.this, "Under Construction", Toast.LENGTH_SHORT).show();
-                                break;
-                            case R.id.nav_del:
-                                Toast.makeText(EditProfileActivity.this, "Under Construction", Toast.LENGTH_SHORT).show();
-                                break;
-                        }
-                        return true;
+
+        et_name = findViewById(R.id.et_name);
+        et_username = findViewById(R.id.et_username);
+        et_email = findViewById(R.id.et_email);
+        et_bio = findViewById(R.id.et_bio);
+
+        mAuth = FirebaseAuth.getInstance();
+        mUser = mAuth.getCurrentUser();
+        uid = Objects.requireNonNull(mUser).getUid();
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(uid);
+
+        btn_save = findViewById(R.id.btn_save);
+
+        if (mDatabase != null){
+            mDatabase.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()){
+                        name = Objects.requireNonNull(dataSnapshot.child("fullname").getValue()).toString();
+                        username = Objects.requireNonNull(dataSnapshot.child("username").getValue()).toString();
+                        email = mUser.getEmail();
+                        bio = Objects.requireNonNull(dataSnapshot.child("bio").getValue()).toString();
+
+                        et_name.setText(name);
+                        et_username.setText(username);
+                        et_email.setText(email);
+                        et_bio.setText(bio);
+                        btn_save.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                mDatabase.child("fullname").setValue(et_name.getText());
+                                mDatabase.child("username").setValue(et_username.getText());
+                                mDatabase.child("bio").setValue(et_bio.getText());
+                                mUser.updateEmail(et_email.getText().toString());
+                            }
+                        });
                     }
-                });
-            }
-        });
-        Button btn_save = findViewById(R.id.btn_save);
-        btn_save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String name = et_name.getText().toString();
-                String email = et_email.getText().toString();
-                String username = et_username.getText().toString();
-                String bio = et_bio.getText().toString();
-            }
-        });
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
+
     }
 
     @Override
@@ -81,4 +95,5 @@ public class EditProfileActivity extends AppCompatActivity {
         onBackPressed();
         return true;
     }
+
 }
